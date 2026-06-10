@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Ingresos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container mt-5">
+
+        <h2 class="mb-4">
+            Registro de Ingresos
+        </h2>
+
+        <form method="POST">
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                    <input type="date"
+                        name="fecha"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <div class="col-md-5">
+
+                    <input type="text"
+                        name="descripcion"
+                        class="form-control"
+                        placeholder="Descripción del ingreso"
+                        required>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <input type="number"
+                        step="0.01"
+                        name="monto"
+                        class="form-control"
+                        placeholder="Monto"
+                        required>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <button class="btn btn-success w-100">
+                        Guardar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <hr>
+
+        <table class="table table-bordered table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                    <th>Monto</th>
+                    <th>Acciones</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for ingreso in ingresos %}
+
+                <tr>
+
+                    <td>{{ ingreso[0] }}</td>
+                    <td>{{ ingreso[1] }}</td>
+                    <td>{{ ingreso[2] }}</td>
+                    <td>${{ ingreso[3] }}</td>
+
+                    <td>
+
+                        <a href="/eliminar_ingreso/{{ ingreso[0] }}"
+                            class="btn btn-danger btn-sm">
+
+                            Eliminar
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <a href="/dashboard"
+            class="btn btn-secondary">
+
+            Volver
+
+        </a>
+
+    </div>
+
+</body>
+</html>
