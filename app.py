@@ -7,10 +7,11 @@ app = Flask(__name__)
 app.secret_key = 'sistema_contable_secret'
 
 # CONFIG MYSQL
-app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_HOST'] = 'acela.proxy.rlwy.net'
+app.config['MYSQL_PORT'] = 28307
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'pass123'
-app.config['MYSQL_DB'] = 'sistema_contable_superselectos'
+app.config['MYSQL_PASSWORD'] = 'TU_PASSWORD_RAILWAY'
+app.config['MYSQL_DB'] = 'railway'
 
 mysql = MySQL(app)
 
