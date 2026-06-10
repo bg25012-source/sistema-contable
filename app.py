@@ -10,7 +10,7 @@ app.secret_key = 'sistema_contable_secret'
 app.config['MYSQL_HOST'] = 'acela.proxy.rlwy.net'
 app.config['MYSQL_PORT'] = 28307
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'TU_PASSWORD_RAILWAY'
+app.config['MYSQL_PASSWORD'] = 'WkSguxiYFsIbRxRrzsKnImlmSayqJFgx'
 app.config['MYSQL_DB'] = 'railway'
 
 mysql = MySQL(app)
