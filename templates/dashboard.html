@@ -15,35 +15,88 @@
 
         body{
             overflow-x: hidden;
+            background: #f5f7fa;
+            font-family: Arial, sans-serif;
         }
 
         .sidebar{
-            width: 250px;
+            width: 260px;
             height: 100vh;
-            background: #212529;
+            background: linear-gradient(180deg, #198754, #146c43);
             position: fixed;
+            box-shadow: 4px 0px 15px rgba(0,0,0,0.15);
         }
 
         .sidebar h3{
             color: white;
             text-align: center;
-            padding: 20px;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
         .sidebar a{
             display: block;
             color: white;
-            padding: 15px;
+            padding: 16px 22px;
             text-decoration: none;
+            transition: 0.3s;
+            font-size: 16px;
         }
 
         .sidebar a:hover{
-            background: #0d6efd;
+            background: rgba(255,255,255,0.20);
+            border-left: 5px solid white;
+            padding-left: 28px;
         }
 
         .content{
-            margin-left: 250px;
-            padding: 30px;
+            margin-left: 260px;
+            padding: 40px;
+        }
+        
+        .titulo{
+            font-size: 35px;
+            font-weight: bold;
+            color: #198754;
+        }
+
+        .subtitulo{
+            color: gray;
+            margin-top: -8px;
+        }
+
+        .card-dashboard{
+            border: none;
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
+            transition: 0.3s;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.15);
+        }
+
+        .card-dashboard:hover{
+            transform: translateY(-8px);
+        }
+
+        .ingresos{
+            background: linear-gradient(135deg,#198754,#20c997);
+        }
+
+        .egresos{
+            background: linear-gradient(135deg,#dc3545,#ff6b6b);
+        }
+
+        .ventas{
+            background: linear-gradient(135deg,#0d6efd,#6ea8fe);
+        }
+
+        .compras{
+            background: linear-gradient(135deg,#fd7e14,#ffb067);
+        }
+
+        .valor{
+            font-size: 30px;
+            font-weight: bold;
         }
 
     </style>
@@ -55,7 +108,21 @@
     <!-- Menú lateral -->
     <div class="sidebar">
 
-        <h3>Super Selectos</h3>
+        <div style="text-align:center; padding-top:20px;">
+
+         <img src="{{ url_for('static',
+         filename='img/logo.png') }}"
+         width="120">
+
+         <h3>
+             Super Selectos
+         </h3>
+
+         <p style="color:#d9f5e5; margin-top:-10px;">
+             Sistema Contable
+         </p>
+
+        </div>
 
         <a href="#">
             🏠 Dashboard
@@ -98,45 +165,53 @@
     <!-- Contenido -->
     <div class="content">
 
-        <h1>
-         Bienvenido {{ usuario }}
+        <h1 class="titulo">
+           ¡Bienvenido, {{ usuario }}! 👋
         </h1>
 
-        <p class="text-muted">
-         {{ correo }}
+        <p class="subtitulo">
+           {{ correo }}
         </p>
 
         <p class="text-muted">
-            Panel principal de Super Selectos
+            Panel principal del Sistema Contable Super Selectos
         </p>
 
-        <div class="row mt-4">
+        <div class="row mt-4 g-4">
 
             <div class="col-md-3">
-                <div class="card shadow p-3">
-                    <h5>Ingresos</h5>
-                    <h2>${{ ingresos }}</h2>
+               <div class="card-dashboard ingresos">
+                    <h5>💰 Ingresos</h5>
+                    <div class="valor">
+                      ${{ ingresos }}
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <div class="card shadow p-3">
-                    <h5>Egresos</h5>
-                    <h2>${{ egresos }}</h2>
+                <div class="card-dashboard egresos">
+                    <h5>💸 Egresos</h5>
+                    <div class="valor">
+                      ${{ egresos }}
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <div class="card shadow p-3">
-                    <h5>Ventas</h5>
-                    <h2>${{ ventas }}</h2>
+                <div class="card-dashboard ventas">
+                    <h5>🧾 Ventas</h5>
+                    <div class="valor">
+                      ${{ ventas }}
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <div class="card shadow p-3">
-                    <h5>Compras</h5>
-                    <h2>${{ compras }}</h2>
+                <div class="card-dashboard compras">
+                    <h5>🛒 Compras</h5>
+                    <div class="valor">
+                        ${{ compras }}
+                    </div>
                 </div>
             </div>
 

@@ -1,0 +1,58 @@
+body {
+    background: linear-gradient(135deg, #198754, #ffffff);
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.login-container {
+    width: 400px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.2);
+    margin: auto;
+    margin-top: 80px;
+}
+
+.logo {
+    display: block;
+    width: 180px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: #198754;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 10px;
+    height: 45px;
+}
+
+.btn-login {
+    width: 100%;
+    background-color: #198754;
+    color: white;
+    border-radius: 10px;
+    height: 45px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.btn-login:hover {
+    background-color: #146c43;
+}
+
+.card-dashboard {
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.card-dashboard:hover {
+    transform: scale(1.05);
+}
