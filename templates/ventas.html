@@ -10,120 +10,229 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
         rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}">
+
 </head>
 
 <body class="bg-light">
 
-    <div class="container mt-5">
+    <div class="container py-5">
 
-        <h2 class="mb-4">
-            Libro de Ventas
-        </h2>
+        <!-- Encabezado -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
-        <form method="POST">
+            <div>
+                <h2 class="fw-bold text-primary">
+                    Libro de Ventas
+                </h2>
 
-            <div class="row">
+                <p class="text-muted mb-0">
+                    Administración de ventas registradas
+                </p>
+            </div>
 
-                <div class="col-md-2">
-                    <input type="date"
-                        name="fecha"
-                        class="form-control"
-                        required>
-                </div>
+            <a href="/dashboard"
+                class="btn btn-outline-success shadow-sm">
 
-                <div class="col-md-3">
-                    <input type="text"
-                        name="cliente"
-                        class="form-control"
-                        placeholder="Cliente"
-                        required>
-                </div>
+                ← Volver al Dashboard
 
-                <div class="col-md-3">
-                    <input type="text"
-                        name="factura"
-                        class="form-control"
-                        placeholder="Factura"
-                        required>
-                </div>
+            </a>
 
-                <div class="col-md-2">
-                    <input type="number"
-                        step="0.01"
-                        name="total"
-                        class="form-control"
-                        placeholder="Total"
-                        required>
-                </div>
+        </div>
 
-                <div class="col-md-2">
+        <!-- Formulario -->
+        <div class="card shadow border-0 rounded-4">
 
-                    <button class="btn btn-primary w-100">
-                        Guardar
-                    </button>
+            <div class="card-body p-4">
+
+                <h5 class="text-primary fw-bold mb-4">
+                    Registrar Nueva Venta
+                </h5>
+
+                <form method="POST">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-2">
+
+                            <label class="form-label fw-semibold">
+                                Fecha
+                            </label>
+
+                            <input type="date"
+                                name="fecha"
+                                class="form-control rounded-3"
+                                required>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <label class="form-label fw-semibold">
+                                Cliente
+                            </label>
+
+                            <input type="text"
+                                name="cliente"
+                                class="form-control rounded-3"
+                                placeholder="Cliente"
+                                required>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <label class="form-label fw-semibold">
+                                Factura
+                            </label>
+
+                            <input type="text"
+                                name="factura"
+                                class="form-control rounded-3"
+                                placeholder="Número de factura"
+                                required>
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <label class="form-label fw-semibold">
+                                Total
+                            </label>
+
+                            <input type="number"
+                                step="0.01"
+                                name="total"
+                                class="form-control rounded-3"
+                                placeholder="$0.00"
+                                required>
+
+                        </div>
+
+                        <div class="col-md-2 d-flex align-items-end">
+
+                            <button class="btn btn-primary w-100 rounded-3 shadow-sm">
+
+                                Guardar
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- Tabla -->
+        <div class="card shadow border-0 rounded-4 mt-4">
+
+            <div class="card-body">
+
+                <h5 class="text-primary fw-bold mb-3">
+                    Historial de Ventas
+                </h5>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead class="table-primary">
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Factura</th>
+                                <th>Total</th>
+                                <th class="text-center">
+                                    Acciones
+                                </th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for venta in ventas %}
+
+                            <tr>
+
+                                <td>{{ venta[0] }}</td>
+
+                                <td>{{ venta[1] }}</td>
+
+                                <td>{{ venta[2] }}</td>
+
+                                <td>{{ venta[3] }}</td>
+
+                                <td>
+                                    <span class="badge bg-primary p-2">
+                                        ${{ venta[4] }}
+                                    </span>
+                                </td>
+
+                                <td class="text-center">
+
+                                    <a href="#"
+                                        onclick="confirmarEliminacion('/eliminar_venta/{{ venta[0] }}')"
+                                        class="btn btn-danger btn-sm rounded-pill px-3">
+
+                                        Eliminar
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
 
                 </div>
 
             </div>
 
-        </form>
-
-        <hr>
-
-        <table class="table table-bordered table-hover">
-
-            <thead class="table-dark">
-
-                <tr>
-                    <th>ID</th>
-                    <th>Fecha</th>
-                    <th>Cliente</th>
-                    <th>Factura</th>
-                    <th>Total</th>
-                    <th>Acciones</th>
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                {% for venta in ventas %}
-
-                <tr>
-
-                    <td>{{ venta[0] }}</td>
-                    <td>{{ venta[1] }}</td>
-                    <td>{{ venta[2] }}</td>
-                    <td>{{ venta[3] }}</td>
-                    <td>${{ venta[4] }}</td>
-
-                    <td>
-
-                        <a href="/eliminar_venta/{{ venta[0] }}"
-                            class="btn btn-danger btn-sm">
-
-                            Eliminar
-
-                        </a>
-
-                    </td>
-
-                </tr>
-
-                {% endfor %}
-
-            </tbody>
-
-        </table>
-
-        <a href="/dashboard"
-            class="btn btn-secondary">
-
-            Volver
-
-        </a>
+        </div>
 
     </div>
 
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confirmarEliminacion(url) {
+
+            Swal.fire({
+                title: '¿Eliminar registro?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#dc3545',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    window.location.href = url;
+
+                }
+
+            });
+
+        }
+    </script>
+
 </body>
+
 </html>

@@ -10,116 +10,212 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
         rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}">
+
 </head>
 
 <body class="bg-light">
 
-    <div class="container mt-5">
+    <div class="container py-5">
 
-        <h2 class="mb-4">
-            Registro de Egresos
-        </h2>
+        <!-- Encabezado -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
-        <form method="POST">
+            <div>
+                <h2 class="fw-bold text-danger">
+                    Registro de Egresos
+                </h2>
 
-            <div class="row">
+                <p class="text-muted mb-0">
+                    Administración de egresos del sistema contable
+                </p>
+            </div>
 
-                <div class="col-md-3">
+            <a href="/dashboard"
+                class="btn btn-outline-success shadow-sm">
 
-                    <input type="date"
-                        name="fecha"
-                        class="form-control"
-                        required>
+                ← Volver al Dashboard
 
-                </div>
+            </a>
 
-                <div class="col-md-5">
+        </div>
 
-                    <input type="text"
-                        name="descripcion"
-                        class="form-control"
-                        placeholder="Descripción del egreso"
-                        required>
+        <!-- Formulario -->
+        <div class="card shadow border-0 rounded-4">
 
-                </div>
+            <div class="card-body p-4">
 
-                <div class="col-md-2">
+                <h5 class="text-danger fw-bold mb-4">
+                    Agregar Nuevo Egreso
+                </h5>
 
-                    <input type="number"
-                        step="0.01"
-                        name="monto"
-                        class="form-control"
-                        placeholder="Monto"
-                        required>
+                <form method="POST">
 
-                </div>
+                    <div class="row g-3">
 
-                <div class="col-md-2">
+                        <div class="col-md-3">
 
-                    <button class="btn btn-danger w-100">
-                        Guardar
-                    </button>
+                            <label class="form-label fw-semibold">
+                                Fecha
+                            </label>
+
+                            <input type="date"
+                                name="fecha"
+                                class="form-control rounded-3"
+                                required>
+
+                        </div>
+
+                        <div class="col-md-5">
+
+                            <label class="form-label fw-semibold">
+                                Descripción
+                            </label>
+
+                            <input type="text"
+                                name="descripcion"
+                                class="form-control rounded-3"
+                                placeholder="Descripción del egreso"
+                                required>
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <label class="form-label fw-semibold">
+                                Monto
+                            </label>
+
+                            <input type="number"
+                                step="0.01"
+                                name="monto"
+                                class="form-control rounded-3"
+                                placeholder="$0.00"
+                                required>
+
+                        </div>
+
+                        <div class="col-md-2 d-flex align-items-end">
+
+                            <button class="btn btn-danger w-100 rounded-3 shadow-sm">
+
+                                Guardar
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- Tabla -->
+        <div class="card shadow border-0 rounded-4 mt-4">
+
+            <div class="card-body">
+
+                <h5 class="text-danger fw-bold mb-3">
+                    Historial de Egresos
+                </h5>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead class="table-danger">
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Fecha</th>
+                                <th>Descripción</th>
+                                <th>Monto</th>
+                                <th class="text-center">
+                                    Acciones
+                                </th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for egreso in egresos %}
+
+                            <tr>
+
+                                <td>{{ egreso[0] }}</td>
+
+                                <td>{{ egreso[1] }}</td>
+
+                                <td>{{ egreso[2] }}</td>
+
+                                <td>
+                                    <span class="badge bg-danger p-2">
+                                        ${{ egreso[3] }}
+                                    </span>
+                                </td>
+
+                                <td class="text-center">
+
+                                    <a href="#"
+                                        onclick="confirmarEliminacion('/eliminar_egreso/{{ egreso[0] }}')"
+                                        class="btn btn-danger btn-sm rounded-pill px-3">
+
+                                        Eliminar
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
 
                 </div>
 
             </div>
 
-        </form>
-
-        <hr>
-
-        <table class="table table-bordered table-hover">
-
-            <thead class="table-dark">
-
-                <tr>
-                    <th>ID</th>
-                    <th>Fecha</th>
-                    <th>Descripción</th>
-                    <th>Monto</th>
-                    <th>Acciones</th>
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                {% for egreso in egresos %}
-
-                <tr>
-
-                    <td>{{ egreso[0] }}</td>
-                    <td>{{ egreso[1] }}</td>
-                    <td>{{ egreso[2] }}</td>
-                    <td>${{ egreso[3] }}</td>
-
-                    <td>
-
-                        <a href="/eliminar_egreso/{{ egreso[0] }}"
-                            class="btn btn-danger btn-sm">
-
-                            Eliminar
-
-                        </a>
-
-                    </td>
-
-                </tr>
-
-                {% endfor %}
-
-            </tbody>
-
-        </table>
-
-        <a href="/dashboard"
-            class="btn btn-secondary">
-
-            Volver
-
-        </a>
+        </div>
 
     </div>
 
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confirmarEliminacion(url) {
+
+            Swal.fire({
+                title: '¿Eliminar registro?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#dc3545',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    window.location.href = url;
+
+                }
+
+            });
+
+        }
+    </script>
+
 </body>
+
 </html>
