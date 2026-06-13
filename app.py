@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, m
 from flask_mysqldb import MySQL
 from reportlab.pdfgen import canvas
 from io import BytesIO 
+from flask import flash
 
 app = Flask(__name__) 
 app.secret_key = 'sistema_contable_secret'
@@ -96,6 +97,10 @@ def dashboard():
 
     cursor.close()
 
+    # BALANCE GENERAL
+    balance = total_ingresos - total_egresos
+
+
     return render_template(
     'dashboard.html',
     ingresos=total_ingresos,
@@ -105,7 +110,6 @@ def dashboard():
     usuario=session['usuario'],
     correo=session['correo']
 )
-
 
 # CATÁLOGO DE CUENTAS
 @app.route('/catalogo', methods=['GET', 'POST'])
@@ -130,6 +134,11 @@ def catalogo():
 
         mysql.connection.commit()
 
+        # ALERTA DE GUARDADO
+        flash('Cuenta registrada correctamente', 'success')
+
+        return redirect('/catalogo')
+
     cursor.execute("""
         SELECT * FROM catalogo_cuentas
     """)
@@ -142,6 +151,7 @@ def catalogo():
         'catalogo.html',
         cuentas=cuentas
     )
+
 
 # ELIMINAR CUENTA
 @app.route('/eliminar_cuenta/<int:id>')
@@ -276,6 +286,11 @@ def ingresos():
 
         mysql.connection.commit()
 
+        # ALERTA DE GUARDADO
+        flash('Ingreso registrado correctamente', 'success')
+
+        return redirect('/ingresos')
+
     cursor.execute("""
         SELECT * FROM ingresos
     """)
@@ -329,6 +344,11 @@ def egresos():
         """, (fecha, descripcion, monto))
 
         mysql.connection.commit()
+
+        # ALERTA DE GUARDADO
+        flash('Egreso registrado correctamente', 'success')
+
+        return redirect('/egresos')
 
     cursor.execute("""
         SELECT * FROM egresos
@@ -385,6 +405,11 @@ def ventas():
 
         mysql.connection.commit()
 
+        # ALERTA DE GUARDADO
+        flash('Venta registrada correctamente', 'success')
+
+        return redirect('/ventas')
+
     cursor.execute("""
         SELECT * FROM ventas
     """)
@@ -439,6 +464,11 @@ def compras():
         """, (fecha, proveedor, factura, total))
 
         mysql.connection.commit()
+
+        # ALERTA DE GUARDADO
+        flash('Compra registrada correctamente', 'success')
+
+        return redirect('/compras')
 
     cursor.execute("""
         SELECT * FROM compras
@@ -495,6 +525,11 @@ def libro_diario():
         """, (fecha, cuenta, debe, haber, descripcion))
 
         mysql.connection.commit()
+
+        # ALERTA DE GUARDADO
+        flash('Asiento registrado correctamente', 'success')
+
+        return redirect('/libro_diario')
 
     cursor.execute("""
         SELECT * FROM libro_diario
