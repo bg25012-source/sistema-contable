@@ -198,7 +198,7 @@
                <div class="card-dashboard ingresos">
                     <h5>💰 Ingresos</h5>
                     <div class="valor">
-                      ${{ ingresos }}
+                      ${{ "{:,.2f}".format(ingresos) }}
                     </div>
                 </div>
             </div>
@@ -207,7 +207,7 @@
                 <div class="card-dashboard egresos">
                     <h5>💸 Egresos</h5>
                     <div class="valor">
-                      ${{ egresos }}
+                      ${{ "{:,.2f}".format(egresos) }}
                     </div>
                 </div>
             </div>
@@ -216,7 +216,7 @@
                 <div class="card-dashboard ventas">
                     <h5>🧾 Ventas</h5>
                     <div class="valor">
-                      ${{ ventas }}
+                      ${{ "{:,.2f}".format(ventas) }}
                     </div>
                 </div>
             </div>
@@ -225,7 +225,7 @@
                 <div class="card-dashboard compras">
                     <h5>🛒 Compras</h5>
                     <div class="valor">
-                        ${{ compras }}
+                        ${{ "{:,.2f}".format(compras) }}
                     </div>
                 </div>
             </div>
@@ -237,7 +237,7 @@
                      📈 Balance General
                     </h5>
                     <div class="valor">
-                     ${{ balance }}
+                     ${{ "{:,.2f}".format(balance) }}
                     </div>
                 </div>
             </div>

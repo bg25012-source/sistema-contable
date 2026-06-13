@@ -107,6 +107,7 @@ def dashboard():
     egresos=total_egresos,
     ventas=total_ventas,
     compras=total_compras,
+    balance=balance,
     usuario=session['usuario'],
     correo=session['correo']
 )
